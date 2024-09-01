@@ -10,9 +10,15 @@ import {
     DB_USERNAME,
     ENTITIES_PATH
 } from "../config";
-import {DataSource, DataSourceOptions} from "typeorm";
+import {DataSource, DataSourceOptions, EntityTarget, ObjectLiteral, Repository} from "typeorm";
 
-export class TypeORMDatabaseConnector implements DatabaseConnector<void> {
+class TypeORMDatabaseConnector implements DatabaseConnector<void> {
+    private readonly instance: DataSource;
+
+    constructor() {
+        this.instance = new DataSource(this.getDatabaseConfig());
+    }
+
     // Pre: Podemos hacer las conversiones necesarias para que los valores de las variables de entorno sean del tipo correcto debido a que se
     // validan en el archivo config.ts que las envVars importadas efectivamente existan y tengan un valor asignado.
     // Nunca deberíamos tener un valor nulo en una variable de entorno que se haya validado previamente.
@@ -37,9 +43,7 @@ export class TypeORMDatabaseConnector implements DatabaseConnector<void> {
     };
 
     public initializeConnection = async (): Promise<void> => {
-        const AppDataSource = new DataSource(this.getDatabaseConfig());
-
-        return AppDataSource.initialize()
+        return this.instance.initialize()
             .then(() => {
                 console.log("Database connected"); // TODO: Logear
             })
@@ -48,7 +52,13 @@ export class TypeORMDatabaseConnector implements DatabaseConnector<void> {
                 throw error;
             });
     };
+
+    public getDataSource = (): DataSource => {
+        return this.instance;
+    }
 }
+
+export default new TypeORMDatabaseConnector();
 
 
 

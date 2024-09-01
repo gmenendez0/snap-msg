@@ -1,0 +1,48 @@
+import {Message} from "../../../../services/domain/Message";
+import {MessageRepository} from "../../interfaces/MessageRepository";
+import {DeleteResult} from "typeorm";
+import {TypeORMRepository} from "../TypeORMRepository";
+
+export class TypeORMMessageRepository extends TypeORMRepository<Message> implements MessageRepository {
+    constructor() {
+        super(Message);
+    }
+
+    public getById = async (id: string): Promise<Message  | null> => {
+        try {
+            return this.typeOrmRepository.findOne({
+                where: {
+                    id: id
+                }
+            })
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    public getAll = (): Promise<Message[]> => {
+        try {
+            return this.typeOrmRepository.find();
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    public save = (message: Message): Promise<Message> => {
+        try {
+            return this.typeOrmRepository.save(message);
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    public delete = (id: string): void => {
+        try {
+            this.typeOrmRepository.delete(id).then((deleteResult: DeleteResult) => {
+                return deleteResult.affected !== 0;
+            })
+        } catch (error) {
+            throw error;
+        }
+    };
+}

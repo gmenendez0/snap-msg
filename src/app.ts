@@ -2,11 +2,9 @@ import {Application} from "express";
 import express from "express";
 import cors from "cors";
 import {PORT} from "./config";
-import {TypeORMDatabaseConnector} from "./database/TypeORMDatabaseConnector";
-import {DatabaseConnector} from "./database/DatabaseConnector";
+import connector from "./database/TypeORMDatabaseConnector";
 
-const database: DatabaseConnector<void> = new TypeORMDatabaseConnector();
-database.initializeConnection()
+connector.initializeConnection()
     .then(() => {
         const app: Application = express();
         app.use(cors());
