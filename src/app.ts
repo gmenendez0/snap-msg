@@ -2,7 +2,7 @@ import {Application} from "express";
 import express from "express";
 import cors from "cors";
 import {PORT} from "./config";
-import connector from "./database/TypeORMDatabaseConnector";
+import connector from "./database/connectors/DatabaseConnector";
 
 connector.initializeConnection()
     .then(() => {

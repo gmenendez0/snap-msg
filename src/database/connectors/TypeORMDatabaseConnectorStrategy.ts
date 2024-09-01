@@ -1,8 +1,8 @@
-import {DatabaseConnector} from "./DatabaseConnector";
-import {DB_DATABASE, DB_HOST, DB_LOGGING, DB_USERNAME, DB_PASSWORD, DB_PORT, DB_SYNCHRONIZE, DB_TYPE, ENTITIES_PATH} from "../config";
+import {DatabaseConnectorStrategy} from "./DatabaseConnectorStrategy";
+import {DB_DATABASE, DB_HOST, DB_LOGGING, DB_USERNAME, DB_PASSWORD, DB_PORT, DB_SYNCHRONIZE, DB_TYPE, ENTITIES_PATH} from "../../config";
 import {DataSource, DataSourceOptions} from "typeorm";
 
-class TypeORMDatabaseConnector implements DatabaseConnector<void> {
+export class TypeORMDatabaseConnectorStrategy implements DatabaseConnectorStrategy<void, DataSource> {
     private readonly _instance: DataSource;
 
     constructor() {
@@ -43,12 +43,14 @@ class TypeORMDatabaseConnector implements DatabaseConnector<void> {
             });
     };
 
-    public get instance(): DataSource {
+    private get instance(): DataSource {
         return this._instance;
     }
-}
 
-export default new TypeORMDatabaseConnector();
+    public getDataSource(): DataSource {
+        return this.instance;
+    }
+}
 
 
 
