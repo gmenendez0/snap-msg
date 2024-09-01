@@ -15,6 +15,6 @@ function validateEnvVarsList(envVarsList: string[]): void {
 
 function validateEnvVar(envVar: string): void {
     if (!process.env[envVar]) {
-        throw new Error(`Environment variable ${envVar} is missing`); // ? TODO Crear error custom y logear
+        throw new Error(`Environment variable ${envVar} is missing`); // ? TODO Logear
     }
 }

@@ -2,20 +2,19 @@ import {Application} from "express";
 import express from "express";
 import cors from "cors";
 import {PORT} from "./config";
-import { DataSource } from "typeorm";
-import { getDatabaseConfig } from "./database/databaseConfig";
+import {TypeORMDatabaseConnector} from "./database/TypeORMDatabaseConnector";
+import {DatabaseConnector} from "./database/DatabaseConnector";
 
-const app: Application = express();
-app.use(cors());
-
-const AppDataSource = new DataSource(getDatabaseConfig());
-AppDataSource.initialize()
+const database: DatabaseConnector<void> = new TypeORMDatabaseConnector();
+database.initializeConnection()
     .then(() => {
-        console.log("Database connected"); //TODO Logear
-    })
-    .catch((error) => console.log(error)) //TODO Logear
+        const app: Application = express();
+        app.use(cors());
 
-
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+        app.listen(PORT, () => {
+            console.log(`Server is running on port ${PORT}`);
+        });
+    }).catch((error) => {
+        console.log(error);
+        process.exit(1);
+    });

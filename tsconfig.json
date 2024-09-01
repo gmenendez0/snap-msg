@@ -14,7 +14,8 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "resolveJsonModule": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "**/*.spec.ts"]
