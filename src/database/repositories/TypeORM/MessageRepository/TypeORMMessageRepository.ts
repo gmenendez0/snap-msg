@@ -37,11 +37,10 @@ export class TypeORMMessageRepository extends TypeORMRepository<Message> impleme
         }
     };
 
-    public delete = (id: string): void => {
+    public delete = async (id: string): Promise<boolean> => {
         try {
-            this.typeOrmRepository.delete(id).then((deleteResult: DeleteResult) => {
-                return deleteResult.affected !== 0;
-            })
+            const deleteResult = await this.typeOrmRepository.delete(id);
+            return deleteResult.affected !== 0;
         } catch (error: any) {
             throw new DatabaseError(error);
         }

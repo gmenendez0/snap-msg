@@ -8,22 +8,20 @@ export class MessageService {
         this.messageRepository = messageRepository;
     }
 
-    public createMessage = (text: string): void => {
+    public createMessage = async (text: string): Promise<Message> => {
         const message = new Message(text);
-        //this.messageRepository.save
+        return this.messageRepository.save(message);
     }
 
-    public getMessage = (id: number): Message => {
-        //return this.messageRepository.findById(id);
-        return new Message("Hello");
+    public getMessage = async (id: string): Promise<Message | null> => {
+        return this.messageRepository.getById(id);
     }
 
-    public getAllMessages = (): Message[] => {
-        //return this.messageRepository.findAll();
-        return [new Message("Hello")];
+    public getAllMessages = async (): Promise<Message[]> => {
+        return this.messageRepository.getAll();
     }
 
-    public deleteMessage = (id: number): void => {
-        //this.messageRepository.delete(id);
+    public deleteMessage = async (id: string): Promise<boolean> => {
+        return this.messageRepository.delete(id);
     }
 }

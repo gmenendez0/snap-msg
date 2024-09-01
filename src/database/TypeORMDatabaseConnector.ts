@@ -1,22 +1,12 @@
 import {DatabaseConnector} from "./DatabaseConnector";
-import {
-    DB_DATABASE,
-    DB_HOST,
-    DB_LOGGING,
-    DB_PASSWORD,
-    DB_PORT,
-    DB_SYNCHRONIZE,
-    DB_TYPE,
-    DB_USERNAME,
-    ENTITIES_PATH
-} from "../config";
-import {DataSource, DataSourceOptions, EntityTarget, ObjectLiteral, Repository} from "typeorm";
+import {DB_DATABASE, DB_HOST, DB_LOGGING, DB_USERNAME, DB_PASSWORD, DB_PORT, DB_SYNCHRONIZE, DB_TYPE, ENTITIES_PATH} from "../config";
+import {DataSource, DataSourceOptions} from "typeorm";
 
 class TypeORMDatabaseConnector implements DatabaseConnector<void> {
-    private readonly instance: DataSource;
+    private readonly _instance: DataSource;
 
     constructor() {
-        this.instance = new DataSource(this.getDatabaseConfig());
+        this._instance = new DataSource(this.getDatabaseConfig());
     }
 
     // Pre: Podemos hacer las conversiones necesarias para que los valores de las variables de entorno sean del tipo correcto debido a que se
@@ -53,8 +43,8 @@ class TypeORMDatabaseConnector implements DatabaseConnector<void> {
             });
     };
 
-    public getDataSource = (): DataSource => {
-        return this.instance;
+    public get instance(): DataSource {
+        return this._instance;
     }
 }
 
