@@ -2,7 +2,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { InvalidMessageTextLength } from "./errors/InvalidMessageTextLength";
 
 const MESSAGE_TEXT_MIN_LENGTH = 1;
-const MESSAGE_TEXT_MAX_LENGTH = 200;
+const MESSAGE_TEXT_MAX_LENGTH = 280;
 
 @Entity()
 export class Message {
