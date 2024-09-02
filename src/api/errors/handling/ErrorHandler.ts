@@ -1,9 +1,9 @@
 import {NextFunction, Response, Request} from "express";
 import {StatusCodes} from "http-status-codes";
-import { HttpResponseSender } from "../controllers/HttpResponseSender";
+import { HttpResponseSender } from "../../controllers/HttpResponseSender";
 import {ErrorFormatter} from "./ErrorFormatter";
 import {RFC7807ErrorFormatter} from "./RFC7807ErrorFormatter";
-import {Helpers} from "../../utils/helpers";
+import {Helpers} from "../../../utils/helpers";
 
 class ErrorHandler{
     private readonly _error: Error;

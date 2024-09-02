@@ -1,6 +1,7 @@
 import {StatusCodes} from "http-status-codes";
 import {DatabaseError} from "../database/errors/DatabaseError";
 import {InvalidMessageTextLength} from "../services/domain/errors/InvalidMessageTextLength";
+import {ResourceNotFoundError} from "../api/errors/ResourceNotFoundError";
 
 export class Helpers {
     private static _errorStatusCodeMap: Map<Function, StatusCodes> = new Map<Function, StatusCodes>();
@@ -35,5 +36,6 @@ export class Helpers {
     private static initializeErrorStatusCodeMap = (): void => {
         this._errorStatusCodeMap.set(DatabaseError, StatusCodes.INTERNAL_SERVER_ERROR);
         this._errorStatusCodeMap.set(InvalidMessageTextLength, StatusCodes.BAD_REQUEST);
+        this._errorStatusCodeMap.set(ResourceNotFoundError, StatusCodes.NOT_FOUND);
     }
 }
