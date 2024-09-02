@@ -7,9 +7,10 @@ echo "INICIA DEPLOY ${0}: `date '+%d/%m/%Y %H:%M:%S'`"
 
 # Variables
 binary='/usr/bin/psql'              #Path al ejecutable mysql
-sqlScript='createSnapMsgDb.sql'     #Script SQL a ejecutar
+sqlScript='add_columns_to_database.sql'     #Script SQL a ejecutar
 username='postgres'                 #username
 password=''                         #password (SI SE USA CONTRASEÑA, SE DEBE MODIFICAR LA LINEA DONDE SE EJECUTA EL COMANDO PARA QUE LA TOME!)
+dbName="snapMsg"
 
 #Ejecucion del comando
 $binary -U ${username} < ${sqlScript}
@@ -30,5 +31,3 @@ echo "FINALIZA CORRECTAMENTE DEPLOY ${0}: `date '+%d/%m/%Y %H:%M:%S'`"
 cd ${currentDir}
 
 exit 0
-
-
