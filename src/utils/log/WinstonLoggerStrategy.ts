@@ -2,6 +2,10 @@ import {LoggingStrategy} from "./LoggingStrategy";
 import winston, {Logger} from "winston";
 import {LOG_ROUTE} from "../../config";
 
+/**
+ * Winston-based implementation of the LoggingStrategy interface.
+ * Uses Winston to log messages to a file.
+ */
 export class WinstonLoggerStrategy implements LoggingStrategy {
     private _logger: Logger;
 
@@ -12,10 +16,20 @@ export class WinstonLoggerStrategy implements LoggingStrategy {
         });
     }
 
+    /**
+     * Logs an informational message using Winston.
+     *
+     * @param message - The informational message to log.
+     */
     public logInfo = (message: string): void => {
         this._logger.info(message);
     }
 
+    /**
+     * Logs an error message using Winston.
+     *
+     * @param message - The error message to log.
+     */
     public logError = (message: string): void => {
         this._logger.error(message);
     }

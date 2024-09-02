@@ -2,22 +2,50 @@ import {DatabaseConnectorStrategy} from "./DatabaseConnectorStrategy";
 import {DataSource} from "typeorm";
 import {AppDataSource} from "./dataSource";
 
+/**
+ * Concrete implementation of the `DatabaseConnectorStrategy` interface for TypeORM.
+ *
+ * This class provides methods for initializing the TypeORM connection and retrieving
+ * the data source instance. It uses a `readonly` instance of `DataSource` to manage
+ * the database connection.
+ */
 export class TypeORMDatabaseConnectorStrategy implements DatabaseConnectorStrategy<DataSource, DataSource> {
-    private static _instance: DataSource;
+    private readonly _instance: DataSource;
 
     constructor() {
-        TypeORMDatabaseConnectorStrategy._instance = AppDataSource;
+        this._instance = AppDataSource;
     }
 
-
+    /**
+     * Initializes the database connection.
+     *
+     * This method uses the `_instance` to initialize the TypeORM connection and
+     * returns a promise that resolves with the initialized `DataSource`.
+     *
+     * @returns {Promise<DataSource>} A promise that resolves with the initialized `DataSource`.
+     */
     public initializeConnection = async (): Promise<DataSource> => {
         return this.instance.initialize();
     };
 
+    /**
+     * Gets the `DataSource` instance.
+     *
+     * This method returns the `readonly` `_instance` of `DataSource`.
+     *
+     * @returns {DataSource} The `readonly` `DataSource` instance.
+     */
     private get instance(): DataSource {
-        return TypeORMDatabaseConnectorStrategy._instance;
+        return this._instance;
     }
 
+    /**
+     * Retrieves the `DataSource`.
+     *
+     * This method returns the `DataSource` instance used for database interactions.
+     *
+     * @returns {DataSource} The `DataSource` for database interactions.
+     */
     public getDataSource(): DataSource {
         return this.instance;
     }

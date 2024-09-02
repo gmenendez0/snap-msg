@@ -1,6 +1,12 @@
 import {Response} from "express";
 import {StatusCodes} from "http-status-codes";
 
+/**
+ * Utility class for sending HTTP responses with various status codes.
+ *
+ * This class provides methods to set the response body and status code and sends the response
+ * using the Express `Response` object.
+ */
 export class HttpResponseSender {
     /**
      * Sets the provided object as the response body and sends the response with status code 200.
@@ -22,6 +28,14 @@ export class HttpResponseSender {
         this.setUpAndSendResponse(res, object, StatusCodes.CREATED);
     }
 
+    /**
+     * Sets the provided object as the response body and sends the response with the given status code.
+     *
+     * @param res - The Express `Response` object to send.
+     * @param object - The object to set as the response body.
+     * @param statusCode - The status code to send with the response.
+     * @throws {Error} If the provided object cannot be converted to the standard body media type.
+     */
     public response = <T>(res: Response, object: T, statusCode: StatusCodes): void => {
         this.setUpAndSendResponse(res, object, statusCode);
     }

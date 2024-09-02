@@ -2,11 +2,19 @@ import {DataSource, DataSourceOptions} from "typeorm";
 import {DB_DATABASE, DB_HOST, DB_LOGGING, DB_PASSWORD, DB_PORT, DB_SYNCHRONIZE, DB_TYPE, DB_USERNAME, MIGRATIONS_PATH} from "../../config";
 import {Message} from "../../services/domain/Message";
 
+/**
+ * The data source for TypeORM, configured with the database connection settings.
+ */
 export const AppDataSource = new DataSource(getDatabaseConfig());
 
-// Pre: Podemos hacer las conversiones necesarias para que los valores de las variables de entorno sean del tipo correcto debido a que se
-// validan en el archivo config.ts que las envVars importadas efectivamente existan y tengan un valor asignado.
-// Nunca deberíamos tener un valor nulo en una variable de entorno que se haya validado previamente.
+/**
+ * Retrieves the database configuration for TypeORM.
+ *
+ * Converts environment variables into a configuration object for the database connection.
+ * EnvVars should be checked before using this function.
+ *
+ * @returns {DataSourceOptions} The configuration object for TypeORM.
+ */
 function getDatabaseConfig(): DataSourceOptions {
     const dbType = DB_TYPE as "postgres"; //TODO: Esta linea hace ruido.
     const dbPort = parseInt(DB_PORT as string);

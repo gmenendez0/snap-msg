@@ -1,6 +1,12 @@
 import {Response} from "express";
 import {HttpResponseSender} from "./HttpResponseSender";
 
+/**
+ * Abstract base class for controllers that handle HTTP responses.
+ *
+ * This class provides methods for sending standard HTTP responses with different status codes.
+ * It uses an instance of `HttpResponseSender` to format and send responses.
+ */
 export abstract class Controller {
     private _responseSender: HttpResponseSender;
 
