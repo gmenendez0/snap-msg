@@ -1,7 +1,5 @@
 import {NextFunction, Response, Request} from "express";
 import {StatusCodes} from "http-status-codes";
-import {DatabaseError} from "../../database/errors/DatabaseError";
-import {InvalidMessageTextLength} from "../../services/domain/errors/InvalidMessageTextLength";
 import { HttpResponseSender } from "../controllers/HttpResponseSender";
 import {ErrorFormatter} from "./ErrorFormatter";
 import {RFC7807ErrorFormatter} from "./RFC7807ErrorFormatter";
