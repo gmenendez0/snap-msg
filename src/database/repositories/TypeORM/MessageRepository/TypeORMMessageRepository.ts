@@ -1,6 +1,5 @@
 import {Message} from "../../../../services/domain/Message";
 import {MessageRepository} from "../../interfaces/MessageRepository";
-import {DeleteResult} from "typeorm";
 import {TypeORMRepository} from "../TypeORMRepository";
 import {DatabaseError} from "../../../errors/DatabaseError";
 

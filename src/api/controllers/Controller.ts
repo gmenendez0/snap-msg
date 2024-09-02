@@ -1,10 +1,10 @@
 import {Response} from "express";
 import {HttpResponseSender} from "./HttpResponseSender";
 
-export abstract class Controller{
+export abstract class Controller {
     private _responseSender: HttpResponseSender;
 
-    constructor(responseSender: HttpResponseSender){
+    protected constructor(responseSender: HttpResponseSender){
         this._responseSender = responseSender;
     }
 

@@ -1,8 +1,8 @@
 import dotenv from 'dotenv';
-import { validateEnvVars } from "./utils/helpers";
+import { Helpers } from "./utils/helpers";
 
 dotenv.config();
-validateEnvVars();
+Helpers.validateEnvVars();
 
 // ? Server config
 export const PORT = process.env.PORT;
