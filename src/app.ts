@@ -19,9 +19,7 @@ databaseConnector.initializeConnection().then(() => {
     });
 });
 
-// 3. Migraciones
 // 4. Documentación
-
 // 5. Tests end-to-end
 // 6. Armar readMe
 // 7. Dockerizar

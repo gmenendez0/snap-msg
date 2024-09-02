@@ -16,5 +16,5 @@ export const DB_PASSWORD = process.env.DB_PASSWORD;
 export const DB_DATABASE = process.env.DB_DATABASE;
 export const DB_SYNCHRONIZE = process.env.DB_SYNCHRONIZE;
 export const DB_LOGGING = process.env.DB_LOGGING;
-export const ENTITIES_PATH = process.env.ENTITIES_PATH;
+export const MIGRATIONS_PATH = process.env.MIGRATIONS_PATH;
 export const DB_TYPE = process.env.DB_TYPE;

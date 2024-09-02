@@ -5,7 +5,7 @@ import {ResourceNotFoundError} from "../api/errors/ResourceNotFoundError";
 
 export class Helpers {
     private static _errorStatusCodeMap: Map<Function, StatusCodes> = new Map<Function, StatusCodes>();
-    private static requiredEnvVars = [ 'PORT', 'DB_HOST', 'DB_PORT', 'DB_USERNAME', 'DB_PASSWORD', 'DB_DATABASE', 'DB_SYNCHRONIZE', 'DB_LOGGING', 'ENTITIES_PATH', 'DB_TYPE', "LOG_ROUTE" ];
+    private static requiredEnvVars = [ 'PORT', 'DB_HOST', 'DB_PORT', 'DB_USERNAME', 'DB_PASSWORD', 'DB_DATABASE', 'DB_SYNCHRONIZE', 'DB_LOGGING', 'MIGRATIONS_PATH', 'DB_TYPE', "LOG_ROUTE" ];
 
     public static validateEnvVars(): void {
         Helpers.validateEnvVarsList(Helpers.requiredEnvVars);
