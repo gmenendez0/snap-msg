@@ -12,9 +12,11 @@ export class MessageController extends Controller{
         this._messageService = messageService;
     }
 
-    public getAllMessages = async (req: Request, res: Response): Promise<void> => {
-        const messages = await this._messageService.getAllMessages();
-        return this.okResponse(res, messages);
+    public createMessage = async (req: Request, res: Response): Promise<void> => {
+        const text = req.body.message;
+        const message = await this._messageService.createMessage(text);
+
+        return this.createdResponse(res, message);
     }
 
     public getMessage = async (req: Request, res: Response): Promise<void> => {
@@ -26,11 +28,9 @@ export class MessageController extends Controller{
         return this.okResponse(res, message);
     }
 
-    public createMessage = async (req: Request, res: Response): Promise<void> => {
-        const text = req.body.text;
-        const message = await this._messageService.createMessage(text);
-
-        return this.createdResponse(res, message);
+    public getAllMessages = async (req: Request, res: Response): Promise<void> => {
+        const messages = await this._messageService.getAllMessages();
+        return this.okResponse(res, messages);
     }
 
     public deleteMessage = async (req: Request, res: Response): Promise<void> => {
