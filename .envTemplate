@@ -11,3 +11,5 @@ DB_SYNCHRONIZE=true
 DB_LOGGING=false
 DB_TYPE=postgres
 MIGRATIONS_PATH=/home/guido/Escritorio/snap-msg/src/database/migrations/*.ts
+
+TEST_MATCH=/home/guido/Escritorio/snap-msg/test/*.test.ts
