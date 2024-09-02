@@ -17,8 +17,8 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "lib": ["es6"],
-    "types": ["reflect-metadata"]
+    "types": ["reflect-metadata", "node"],
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "test/**/*.ts"],
   "exclude": ["node_modules", "dist", "**/*.spec.ts"]
 }

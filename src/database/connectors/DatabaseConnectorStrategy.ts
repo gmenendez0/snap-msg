@@ -26,4 +26,14 @@ export interface DatabaseConnectorStrategy<T, Y> {
      * @returns {Y} The data source for database interactions.
      */
     getDataSource(): Y;
+
+        /**
+     * Shuts down the database connection.
+     *
+     * This method should handle the process of closing the database connection
+     * and return a promise that resolves when the shutdown is complete.
+     *
+     * @returns {Promise<void>} A promise that resolves when the connection has been shut down.
+     */
+    shutdownConnection(): Promise<void>;
 }

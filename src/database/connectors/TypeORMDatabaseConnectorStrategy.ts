@@ -49,4 +49,16 @@ export class TypeORMDatabaseConnectorStrategy implements DatabaseConnectorStrate
     public getDataSource(): DataSource {
         return this.instance;
     }
+
+        /**
+     * Shuts down the database connection.
+     *
+     * This method should handle the process of closing the database connection
+     * and return a promise that resolves when the shutdown is complete.
+     *
+     * @returns {Promise<void>} A promise that resolves when the connection has been shut down.
+     */
+    public shutdownConnection(): Promise<void> {
+        return this.instance.destroy();
+    }
 }
