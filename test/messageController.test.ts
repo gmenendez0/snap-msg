@@ -1,10 +1,7 @@
 import request from 'supertest';
 import app from '../src/app';
-import {Server} from "node:net";
 import { describe, it, expect, beforeAll, afterAll } from '@jest/globals';
 import databaseConnector from "../src/database/connectors/DatabaseConnector";
-
-let server: Server;
 
 beforeAll(async  () => {
   // ? Espero hasta que se levante el server...
@@ -60,7 +57,7 @@ describe('MessageController', () => {
   });
 
   it("should receive error because message text is too long", async () => {
-    const response = await request(app)
+    await request(app)
       .post('/v1/messages/')
       .send({ message: 'a'.repeat(1001) })
       .expect(400);
@@ -79,7 +76,9 @@ function deleteMessage(id: string) {
 }
 
 afterAll( (done) => {
-  databaseConnector.shutdownConnection().then(_r => {
+   databaseConnector.shutdownConnection().then(_r => {
     console.log('Database connection closed');
   });
+
+  done();
 });
