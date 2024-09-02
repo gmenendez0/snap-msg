@@ -6,6 +6,7 @@ Helpers.validateEnvVars();
 
 // ? Server config
 export const PORT = process.env.PORT;
+export const LOG_ROUTE = process.env.LOG_ROUTE;
 
 // ? Database config
 export const DB_HOST = process.env.DB_HOST;

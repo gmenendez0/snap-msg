@@ -25,7 +25,7 @@ export class Message {
     }
 
     public set text(text: string) {
-        this.validateText(text);
+        //this.validateText(text);
         this._text = text;
     }
     private validateText = (text: string): void => {

@@ -5,7 +5,7 @@ import {ResourceNotFoundError} from "../api/errors/ResourceNotFoundError";
 
 export class Helpers {
     private static _errorStatusCodeMap: Map<Function, StatusCodes> = new Map<Function, StatusCodes>();
-    private static requiredEnvVars = [ 'PORT', 'DB_HOST', 'DB_PORT', 'DB_USERNAME', 'DB_PASSWORD', 'DB_DATABASE', 'DB_SYNCHRONIZE', 'DB_LOGGING', 'ENTITIES_PATH', 'DB_TYPE' ];
+    private static requiredEnvVars = [ 'PORT', 'DB_HOST', 'DB_PORT', 'DB_USERNAME', 'DB_PASSWORD', 'DB_DATABASE', 'DB_SYNCHRONIZE', 'DB_LOGGING', 'ENTITIES_PATH', 'DB_TYPE', "LOG_ROUTE" ];
 
     public static validateEnvVars(): void {
         Helpers.validateEnvVarsList(Helpers.requiredEnvVars);
@@ -18,7 +18,7 @@ export class Helpers {
     }
 
     public static validateEnvVar(envVar: string): void {
-        if (!process.env[envVar]) throw new Error(`Environment variable ${envVar} is missing`); // ? TODO Logear
+        if (!process.env[envVar]) throw new Error(`Environment variable ${envVar} is missing`);
     }
 
     public static mapErrorToStatusCode(error: Error): StatusCodes {

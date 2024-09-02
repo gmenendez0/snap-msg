@@ -2,7 +2,7 @@ import {DatabaseConnectorStrategy} from "./DatabaseConnectorStrategy";
 import {DB_DATABASE, DB_HOST, DB_LOGGING, DB_USERNAME, DB_PASSWORD, DB_PORT, DB_SYNCHRONIZE, DB_TYPE, ENTITIES_PATH} from "../../config";
 import {DataSource, DataSourceOptions} from "typeorm";
 
-export class TypeORMDatabaseConnectorStrategy implements DatabaseConnectorStrategy<void, DataSource> {
+export class TypeORMDatabaseConnectorStrategy implements DatabaseConnectorStrategy<DataSource, DataSource> {
     private readonly _instance: DataSource;
 
     constructor() {
@@ -13,7 +13,7 @@ export class TypeORMDatabaseConnectorStrategy implements DatabaseConnectorStrate
     // validan en el archivo config.ts que las envVars importadas efectivamente existan y tengan un valor asignado.
     // Nunca deberíamos tener un valor nulo en una variable de entorno que se haya validado previamente.
     private getDatabaseConfig = (): DataSourceOptions => {
-        const dbType = DB_TYPE as "postgres"; //TODO: Considerar manejar dinámicamente el tipo de base de datos
+        const dbType = DB_TYPE as "postgres"; //TODO: Esta linea hace ruido.
         const dbPort = parseInt(DB_PORT as string);
         const dbSynchronize = DB_SYNCHRONIZE === "true";
         const dbLogging = DB_LOGGING === "true";
@@ -32,15 +32,8 @@ export class TypeORMDatabaseConnectorStrategy implements DatabaseConnectorStrate
         };
     };
 
-    public initializeConnection = async (): Promise<void> => {
-        return this.instance.initialize()
-            .then(() => {
-                console.log("Database connected"); // TODO: Logear
-            })
-            .catch((error) => {
-                console.log(error); // TODO: Logear
-                throw error;
-            });
+    public initializeConnection = async (): Promise<DataSource> => {
+        return this.instance.initialize();
     };
 
     private get instance(): DataSource {
