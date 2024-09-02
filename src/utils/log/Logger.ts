@@ -1,5 +1,6 @@
 import {LoggingStrategy} from "./LoggingStrategy";
 import {WinstonLoggerStrategy} from "./WinstonLoggerStrategy";
+import {LOGGING} from "../../config";
 
 /**
  * Logger class that uses a logging strategy to log messages.
@@ -7,9 +8,11 @@ import {WinstonLoggerStrategy} from "./WinstonLoggerStrategy";
  */
 export class Logger {
     private _loggingStrategy: LoggingStrategy;
+    private readonly _loggingEnabled: boolean;
 
     constructor(loggingStrategy: LoggingStrategy) {
         this._loggingStrategy = loggingStrategy;
+        this._loggingEnabled = LOGGING === 'true';
     }
 
     /**
@@ -18,7 +21,7 @@ export class Logger {
      * @param message - The informational message to log.
      */
     public logInfo = (message: string): void => {
-        this._loggingStrategy.logInfo(message);
+        if (this._loggingEnabled) this._loggingStrategy.logInfo(message);
     }
 
     /**
@@ -27,7 +30,7 @@ export class Logger {
      * @param message - The error message to log.
      */
     public logError = (message: string): void => {
-        this._loggingStrategy.logError(message);
+        if (this._loggingEnabled) this._loggingStrategy.logError(message);
     }
 }
 
