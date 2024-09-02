@@ -29,7 +29,7 @@ export class HttpResponseSender {
     }
 
     /**
-     * Sets the provided object as the response body and sends the response with the given status code.
+     * Sets the provided bytes as the response body and sends the response with the given status code.
      *
      * @param res - The Express `Response` object to send.
      * @param bytes - The bytes to send as the response body.
@@ -53,7 +53,7 @@ export class HttpResponseSender {
     }
 
         /**
-     * Sets the provided object as the response body and sends the response with the given status code.
+     * Sets the provided bytes as the response body and sends the response with the given status code.
      * @param res - The Response object to send.
      * @param bytes - The bytes to send as the response body.
      * @param statusCode - The status code to send with the response.

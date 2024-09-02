@@ -73,5 +73,6 @@ class ErrorHandler{
  * @param next - The next middleware function in the Express stack.
  */
 export const errorMiddleware = (error: Error, req: Request, res: Response, next: NextFunction): void => {
+    console.log(error)
     new ErrorHandler(error, req, res, next).handle();
 }

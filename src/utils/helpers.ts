@@ -2,6 +2,7 @@ import {StatusCodes} from "http-status-codes";
 import {DatabaseError} from "../database/errors/DatabaseError";
 import {InvalidMessageTextLength} from "../services/domain/errors/InvalidMessageTextLength";
 import {ResourceNotFoundError} from "../api/errors/ResourceNotFoundError";
+import {BadRequestError} from "../api/errors/BadRequestError";
 
 /**
  * A utility class for various helper functions.
@@ -75,5 +76,6 @@ export class Helpers {
         this._errorStatusCodeMap.set(DatabaseError, StatusCodes.INTERNAL_SERVER_ERROR);
         this._errorStatusCodeMap.set(InvalidMessageTextLength, StatusCodes.BAD_REQUEST);
         this._errorStatusCodeMap.set(ResourceNotFoundError, StatusCodes.NOT_FOUND);
+        this._errorStatusCodeMap.set(BadRequestError, StatusCodes.BAD_REQUEST);
     }
 }

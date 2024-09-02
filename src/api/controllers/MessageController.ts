@@ -3,6 +3,7 @@ import {Controller} from "./Controller";
 import {HttpResponseSender} from "./HttpResponseSender";
 import {NextFunction, Request, Response} from "express";
 import {ResourceNotFoundError} from "../errors/ResourceNotFoundError";
+import {BadRequestError} from "../errors/BadRequestError";
 
 // noinspection ExceptionCaughtLocallyJS
 /**
@@ -33,6 +34,8 @@ export class MessageController extends Controller{
      */
     public createMessage = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
         try {
+            if (!req.body.message) throw new BadRequestError("Message text is required");
+
             const text = req.body.message;
             const message = await this._messageService.createMessage(text);
 
@@ -55,6 +58,8 @@ export class MessageController extends Controller{
      */
     public getMessage = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
         try {
+            if (!req.params.id) throw new BadRequestError("Message ID is required");
+
             const id = req.params.id;
             const message = await this._messageService.getMessage(id);
 
@@ -99,12 +104,14 @@ export class MessageController extends Controller{
      */
     public deleteMessage = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
         try {
+            if (!req.params.id) throw new BadRequestError("Message ID is required");
+
             const id = req.params.id;
             const deleted = await this._messageService.deleteMessage(id);
 
             if (!deleted) throw new ResourceNotFoundError("Message not found");
 
-            return this.okResponse(res, {message: "Message deleted"});
+            return this.okResponse(res, {result: "Deleted"});
         } catch (error) {
             return next(error);
         }
