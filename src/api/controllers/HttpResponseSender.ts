@@ -32,12 +32,12 @@ export class HttpResponseSender {
      * Sets the provided object as the response body and sends the response with the given status code.
      *
      * @param res - The Express `Response` object to send.
-     * @param object - The object to set as the response body.
+     * @param bytes - The bytes to send as the response body.
      * @param statusCode - The status code to send with the response.
      * @throws {Error} If the provided object cannot be converted to the standard body media type.
      */
-    public response = <T>(res: Response, object: T, statusCode: StatusCodes): void => {
-        this.setUpAndSendResponse(res, object, statusCode);
+    public responseWithBytes = (res: Response, bytes: string, statusCode: StatusCodes): void => {
+        this.setUpAndSendResponseAsBytes(res, bytes, statusCode);
     }
 
     /**
@@ -50,5 +50,17 @@ export class HttpResponseSender {
     private setUpAndSendResponse = <T>(res: Response, object: T, statusCode: StatusCodes): void => {
         res.status(statusCode);
         res.json(object);
+    }
+
+        /**
+     * Sets the provided object as the response body and sends the response with the given status code.
+     * @param res - The Response object to send.
+     * @param bytes - The bytes to send as the response body.
+     * @param statusCode - The status code to send with the response.
+     * @throws {Error} If the provided object cannot be converted to the standard body media type.
+     */
+    private setUpAndSendResponseAsBytes = (res: Response, bytes: string, statusCode: StatusCodes): void => {
+        res.status(statusCode);
+        res.send(bytes);
     }
 }

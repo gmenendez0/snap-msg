@@ -10,8 +10,8 @@ import logger from "./utils/log/Logger";
 databaseConnector.initializeConnection().then(() => {
     const app: Application = express();
     app.use(cors());
-    app.use(errorMiddleware)
     app.use(router)
+    app.use(errorMiddleware)
 
     app.listen(PORT, () => {
         logger.logInfo(`Server is running on port ${PORT}`);
@@ -19,7 +19,6 @@ databaseConnector.initializeConnection().then(() => {
     });
 });
 
-// 4. Documentación
 // 5. Tests end-to-end
 // 6. Armar readMe
 // 7. Dockerizar

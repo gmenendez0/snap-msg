@@ -24,11 +24,11 @@ export class TypeORMMessageRepository extends TypeORMRepository<Message> impleme
      */
     public getById = async (id: string): Promise<Message | null> => {
         try {
-            return this.typeOrmRepository.findOne({
-                where: {
-                    id: id
-                }
-            })
+            // ? Debemos usar queryBuiler para poder mantener los atributos privados de la clase Message
+
+            return await this.typeOrmRepository.createQueryBuilder("message")
+                .where("message.id = :id", {id})
+                .getOne();
         } catch (error: any) {
             throw new DatabaseError(error);
         }

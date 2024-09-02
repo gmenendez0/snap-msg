@@ -1,9 +1,10 @@
 import {MessageService} from "../../services/application/MessageService";
 import {Controller} from "./Controller";
 import {HttpResponseSender} from "./HttpResponseSender";
-import {Request, Response} from "express";
+import {NextFunction, Request, Response} from "express";
 import {ResourceNotFoundError} from "../errors/ResourceNotFoundError";
 
+// noinspection ExceptionCaughtLocallyJS
 /**
  * Controller class for handling message-related HTTP requests.
  *
@@ -28,12 +29,17 @@ export class MessageController extends Controller{
      *
      * @param req - The Express `Request` object.
      * @param res - The Express `Response` object.
+     * @param next - The Express `NextFunction` object.
      */
-    public createMessage = async (req: Request, res: Response): Promise<void> => {
-        const text = req.body.message;
-        const message = await this._messageService.createMessage(text);
+    public createMessage = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+        try {
+            const text = req.body.message;
+            const message = await this._messageService.createMessage(text);
 
-        return this.createdResponse(res, message);
+            return this.createdResponse(res, message);
+        } catch (error) {
+            return next(error);
+        }
     }
 
     /**
@@ -45,14 +51,19 @@ export class MessageController extends Controller{
      *
      * @param req - The Express `Request` object.
      * @param res - The Express `Response` object.
+     * @param next - The Express `NextFunction` object.
      */
-    public getMessage = async (req: Request, res: Response): Promise<void> => {
-        const id = req.params.id;
-        const message = await this._messageService.getMessage(id);
+    public getMessage = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+        try {
+            const id = req.params.id;
+            const message = await this._messageService.getMessage(id);
 
-        if (message === null) new ResourceNotFoundError("Message not found");
+            if (message === null) throw new ResourceNotFoundError("Message not found");
 
-        return this.okResponse(res, message);
+            return this.okResponse(res, message);
+        } catch (error) {
+            return next(error);
+        }
     }
 
     /**
@@ -61,12 +72,17 @@ export class MessageController extends Controller{
      * Fetches all messages using the `MessageService` and sends a response with status code
      * 200 (OK) containing the list of messages.
      *
-     * @param req - The Express `Request` object.
+     * @param _req - The Express `Request` object.
      * @param res - The Express `Response` object.
+     * @param next - The Express `NextFunction` object.
      */
-    public getAllMessages = async (req: Request, res: Response): Promise<void> => {
-        const messages = await this._messageService.getAllMessages();
-        return this.okResponse(res, messages);
+    public getAllMessages = async (_req: Request, res: Response, next: NextFunction): Promise<void> => {
+        try {
+            const messages = await this._messageService.getAllMessages();
+            return this.okResponse(res, messages);
+        } catch (error) {
+            return next(error);
+        }
     }
 
     /**
@@ -79,13 +95,18 @@ export class MessageController extends Controller{
      *
      * @param req - The Express `Request` object.
      * @param res - The Express `Response` object.
+     * @param next - The Express `NextFunction` object.
      */
-    public deleteMessage = async (req: Request, res: Response): Promise<void> => {
-        const id = req.params.id;
-        const deleted = await this._messageService.deleteMessage(id);
+    public deleteMessage = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+        try {
+            const id = req.params.id;
+            const deleted = await this._messageService.deleteMessage(id);
 
-        if (!deleted) new ResourceNotFoundError("Message not found");
+            if (!deleted) throw new ResourceNotFoundError("Message not found");
 
-        return this.okResponse(res, {message: "Message deleted"});
+            return this.okResponse(res, {message: "Message deleted"});
+        } catch (error) {
+            return next(error);
+        }
     }
 }

@@ -10,10 +10,10 @@ const MESSAGE_TEXT_MAX_LENGTH = 280;
  */
 @Entity()
 export class Message {
-    @PrimaryGeneratedColumn("uuid")
+    @PrimaryGeneratedColumn("uuid", { name: "id" })
     private _id: string;
 
-    @Column()
+    @Column({ name: "text" })
     private _text: string;
 
     constructor() {

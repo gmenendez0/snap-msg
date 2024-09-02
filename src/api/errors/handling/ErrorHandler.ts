@@ -26,6 +26,7 @@ class ErrorHandler{
         this._res = res;
         this._next = next;
         this._errorFormatter = new RFC7807ErrorFormatter();
+        this._httpResponseSender = new HttpResponseSender();
     }
 
     /**
@@ -38,7 +39,7 @@ class ErrorHandler{
         const errorStatusCode = this.getErrorStatusCode();
         const errorData = this.getErrorData();
 
-        this._httpResponseSender.response(this._res, errorData, errorStatusCode);
+        this._httpResponseSender.responseWithBytes(this._res, errorData, errorStatusCode);
     }
 
     /**
