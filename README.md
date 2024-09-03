@@ -26,8 +26,9 @@
 2. npm (>=6.0.0)
 3. PostgreSQL
 4. TypeScript
+5. Docker (opcional)
 
-## Instrucciones de uso:
+## Instrucciones de uso (SIN DOCKER):
 
 1. Clonar el repositorio.
 2. Instalar las dependencias con `npm install`.
@@ -51,6 +52,7 @@
 - B. Correr el script `bin/create_database.sh` (dar permisos de ejecucion con `chmod +x bin/create_database.sh`) y dejar en "true" la variable de entorno `DB_SYNCHRONIZE`.
 
 ## Env Vars:
+
 1. **PORT**: Puerto en el que se levantara la aplicacion.
 2. **LOG_ROUTE**: Ruta donde se guardara el log de la aplicacion.
 3. **LOGGING**: true o false, si se quiere que la aplicacion logee.
@@ -64,3 +66,16 @@
 11. **DB_TYPE**: Tipo de base de datos, se espera que sea "postgres".
 12. **MIGRATIONS_PATH**: Ruta donde se guardaran las migraciones de la base de datos.
 13. **TEST_MATCH**: Ruta donde se guardaran los tests.
+
+# Instrucciones de uso (CON DOCKER):
+
+1. Requiere Docker y Docker Compose.
+2. La idea sera trabajar con el servicio dockerizado, asi como tambien con la base de datos dockerizada. Para eso existen dos repositorios mas:
+   - **snap-msg-db**: https://github.com/gmenendez0/snap-msg-db.git - Base de datos dockerizada
+   - **snap-msg-builder**: https://github.com/gmenendez0/snap-msg-builder.git - Builder del servicio + base de datos
+3. Se deberan clonar los tres repositorios (snap-msg, snap-msg-db y snap-msg-builder).
+4. En el repositorio snap-msg, se debera crear un archivo `.env` siguiendo el ejemplo del archivo `.envTemplate`, como se explico en los intructivos previos. Esta vez, en el campo `DB_HOST` se debera poner el nombre del servicio de la base de datos dockerizada ("db").
+5. Luego se deberan setear los paths a cada Dockerfile (servicio y base de datos) en el archivo `docker-compose.yml` del repositorio snap-msg-builder mediante el seteo de `Context`.
+6. Para levantar la aplicacion, correr `docker-compose up --build` desde el repositorio snap-msg-builder.
+7. En caso de que falle la inicializacion del servicio, esto se debe a que el servicio se levanta primero que la base de datos, entonces falla al intentar conectarse.
+8. Para solucionar esto, se debera correr `docker-compose up --build` nuevamente (no se como solucionarlo, lo investigo para el tpg).
