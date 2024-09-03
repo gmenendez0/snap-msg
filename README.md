@@ -48,7 +48,7 @@
 1. Para correr los tests, si o si debe setearse la variable de entorno TEST_MATCH para que apunte al directorio de los tests.
 2. Para levantar la base de datos, hay dos opciones:
 - A. Correr el script `bin/initialize_database.sh` (dar permisos de ejecucion con `chmod +x bin/initialize_database.sh`) y dejar el "false" la variable de entorno `DB_SYNCHRONIZE`.
-- B. Correr el script `bin/create_database.sh` (dar permisos de ejecucion con `chmod +x bin/create_database.sh`) y luego correr el script `bin/synchronize_database.sh` (dar permisos de ejecucion con `chmod +x bin/synchronize_database.sh`) y dejar en "true" la variable de entorno `DB_SYNCHRONIZE`.
+- B. Correr el script `bin/create_database.sh` (dar permisos de ejecucion con `chmod +x bin/create_database.sh`) y dejar en "true" la variable de entorno `DB_SYNCHRONIZE`.
 
 ## Env Vars:
 1. **PORT**: Puerto en el que se levantara la aplicacion.
