@@ -42,7 +42,11 @@
 ## Aspectos mas desafiantes y puntos de mejora:
 
 1. **Tests**: Aunque se han implementado tests, se deben mejorar y añadir más tests. Tambien se deberia mejorar la calidad del codigo de estos, ya que no estan a la altura del resto del proyecto en cuestion de calidad. La mayor dificultad fue aprender como funcionan las librerias de testing en TS.
-2. **Docker**
+2. **Docker**: Es peligroso como se pasan los secretos a traves de los archivos `.env`, se deberia mejorar la seguridad de estos. 
+3. **Docker**: Se deberia mejorar la configuracion de Docker, ya que no se logro hacer que el servicio espere a que la base de datos este lista para conectarse.
+4. **General**: En los repositorios pudo haber quedado basura que no se vaya a usar, se deberia hacer una limpieza. Se encarara para el TPG.
+5. **General**: Se deberia mejorar la documentacion del proyecto, ya que no se encuentra en un estado optimo.
+6. **Docker-General**: Se deberia mejorar la forma de poner en marcha todo el sistema, ya que en la opcion dockerizada, se deben clonar tres repositorios y configurarlos.
 
 ## Aclaraciones importantes:
 
@@ -78,4 +82,4 @@
 5. Luego se deberan setear los paths a cada Dockerfile (servicio y base de datos) en el archivo `docker-compose.yml` del repositorio snap-msg-builder mediante el seteo de `Context`.
 6. Para levantar la aplicacion, correr `docker-compose up --build` desde el repositorio snap-msg-builder.
 7. En caso de que falle la inicializacion del servicio, esto se debe a que el servicio se levanta primero que la base de datos, entonces falla al intentar conectarse.
-8. Para solucionar esto, se debera correr `docker-compose up --build` nuevamente (no se como solucionarlo, lo investigo para el tpg).
+8. Para solucionar esto, se debera correr `docker-compose up --build` nuevamente (no se como solucionarlo, lo investigo para el TPG).
