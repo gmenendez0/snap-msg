@@ -1,0 +1,9 @@
+/dist
+/doc
+/node_modules
+/.idea
+/.git
+.gitignore
+.envTemplate
+app.log
+README.md
