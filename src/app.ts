@@ -21,6 +21,3 @@ databaseConnector.initializeConnection().then(() => {
 });
 
 export default app;
-
-// 6. Armar readMe
-// 7. Dockerizar
