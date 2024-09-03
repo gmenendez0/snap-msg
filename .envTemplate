@@ -2,7 +2,7 @@ PORT=3000
 LOG_ROUTE=app.log
 LOGGING=false
 
-DB_HOST=localhost
+DB_HOST=db
 DB_PORT=5432
 DB_USERNAME=postgres
 DB_PASSWORD=1234
