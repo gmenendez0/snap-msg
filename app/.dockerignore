@@ -6,4 +6,4 @@
 .gitignore
 .envTemplate
 app.log
-README.md
+../README.md

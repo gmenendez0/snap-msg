@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  db:
+    build:
+      context: db # Ruta al directorio donde se encuentra Dockerfile.db
+      dockerfile: Dockerfile # Nombre del Dockerfile para PostgreSQL
+    environment:
+      POSTGRES_DB: snapMsg
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
+  app:
+    build:
+      context: app  # Ruta al directorio donde se encuentra Dockerfile.app
+      dockerfile: Dockerfile  # Nombre del Dockerfile para la aplicación Node.js
+    environment:
+      DATABASE_HOST: db
+      DATABASE_USER: postgres
+      DATABASE_NAME: snapMsg
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db_data:

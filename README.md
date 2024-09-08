@@ -1,59 +1,8 @@
 # snap-msg
 
-## Estructura del proyecto:
-
-![img.png](doc/projectStructure.png)
-
-1. **bin**: Contiene scripts utilitarios.
-2. **src**: Contiene el código fuente del proyecto.
-    - **api**: Contiene los controladores de la aplicación y sus manejadores de errores.
-    - **database**: Contiene la configuración de la base de datos y los repositorios.
-    - **services**: Contiene la lógica de negocio de la aplicación y del dominio.
-    - **utils**: Contiene utilidades de la aplicación.
-    - **config.ts**: Archivo de configuración de la aplicación con las variables de entorno.
-    - **app.ts**: Archivo principal de la aplicación.
-3. **test**: Contiene los tests del proyecto.
-4. **.env**: Archivo donde se cargaran las variables de entorno.
-5. **.gitignore**: Archivo que contiene los archivos que no se deben subir al repositorio.
-6. **app.log**: Archivo log de la aplicacion.
-7. **jest.config.js**: Archivo de configuración de jest.
-8. **package.json**: Archivo de configuración de npm.
-9. **package-lock.json**: Archivo de configuración de npm.
-10. **tsconfig.json**: Archivo de configuración de typescript.
-
 ## Requisitos:
-1. Node.js (>=14.0.0)
-2. npm (>=6.0.0)
-3. PostgreSQL
-4. TypeScript
-5. Docker (opcional)
 
-## Instrucciones de uso (SIN DOCKER):
-
-1. Clonar el repositorio.
-2. Instalar las dependencias con `npm install`.
-3. Crear un archivo `.env` en la raíz del proyecto siguiendo el ejemplo del archivo `.envTemplate`.
-4. Crear la base de datos en PostgreSQL (puede usarse el script `/bin/initialize_database.sh`, pero seguramente haga falta cambiar el usuario y contraseña de PSQL). Este script creara la base de datos y tambien generara su estructura (dar permisos de ejecucion a todo `/bin` con `chmod +x *`).
-5. Builder la app con `npm run build`.
-6. Iniciar la app con `npm start`.
-7. En caso de querer ejecutar los tests, correr `npm test` (Doc. de Jest: https://jestjs.io/docs/getting-started).
-
-
-## Aspectos mas desafiantes y puntos de mejora:
-
-1. **Tests**: Aunque se han implementado tests, se deben mejorar y añadir más tests. Tambien se deberia mejorar la calidad del codigo de estos, ya que no estan a la altura del resto del proyecto en cuestion de calidad. La mayor dificultad fue aprender como funcionan las librerias de testing en TS.
-2. **Docker**: Es peligroso como se pasan los secretos a traves de los archivos `.env`, se deberia mejorar la seguridad de estos. 
-3. **Docker**: Se deberia mejorar la configuracion de Docker, ya que no se logro hacer que el servicio espere a que la base de datos este lista para conectarse.
-4. **General**: En los repositorios pudo haber quedado basura que no se vaya a usar, se deberia hacer una limpieza. Se encarara para el TPG.
-5. **General**: Se deberia mejorar la documentacion del proyecto, ya que no se encuentra en un estado optimo.
-6. **Docker-General**: Se deberia mejorar la forma de poner en marcha todo el sistema, ya que en la opcion dockerizada, se deben clonar tres repositorios y configurarlos.
-
-## Aclaraciones importantes:
-
-1. Para correr los tests, si o si debe setearse la variable de entorno TEST_MATCH para que apunte al directorio de los tests.
-2. Para levantar la base de datos, hay dos opciones:
-- A. Correr el script `bin/initialize_database.sh` (dar permisos de ejecucion con `chmod +x bin/initialize_database.sh`) y dejar el "false" la variable de entorno `DB_SYNCHRONIZE`.
-- B. Correr el script `bin/create_database.sh` (dar permisos de ejecucion con `chmod +x bin/create_database.sh`) y dejar en "true" la variable de entorno `DB_SYNCHRONIZE`.
+1. Docker & DockerCompose
 
 ## Env Vars:
 
@@ -71,15 +20,10 @@
 12. **MIGRATIONS_PATH**: Ruta donde se guardaran las migraciones de la base de datos.
 13. **TEST_MATCH**: Ruta donde se guardaran los tests.
 
-# Instrucciones de uso (CON DOCKER):
+# Instrucciones de uso:
 
-1. Requiere Docker y Docker Compose.
-2. La idea sera trabajar con el servicio dockerizado, asi como tambien con la base de datos dockerizada. Para eso existen dos repositorios mas:
-   - **snap-msg-db**: https://github.com/gmenendez0/snap-msg-db.git - Base de datos dockerizada
-   - **snap-msg-builder**: https://github.com/gmenendez0/snap-msg-builder.git - Builder del servicio + base de datos
-3. Se deberan clonar los tres repositorios (snap-msg, snap-msg-db y snap-msg-builder).
-4. En el repositorio snap-msg, se debera crear un archivo `.env` siguiendo el ejemplo del archivo `.envTemplate`, como se explico en los intructivos previos. Esta vez, en el campo `DB_HOST` se debera poner el nombre del servicio de la base de datos dockerizada ("db").
-5. Luego se deberan setear los paths a cada Dockerfile (servicio y base de datos) en el archivo `docker-compose.yml` del repositorio snap-msg-builder mediante el seteo de `Context`.
-6. Para levantar la aplicacion, correr `docker-compose up --build` desde el repositorio snap-msg-builder.
-7. En caso de que falle la inicializacion del servicio, esto se debe a que el servicio se levanta primero que la base de datos, entonces falla al intentar conectarse.
-8. Para solucionar esto, se debera correr `docker-compose up --build` nuevamente (no se como solucionarlo, lo investigo para el TPG).
+1. Clonar el repositorio.
+2. Configurar el archivo .env dentro de snap-msg/app siguiendo el ejemplo del archivo .envTemplate. Se recomienda unicamente cambiar los campos MIGRATIONS_PATH y TEST_MATCH.
+3. Para levantar la aplicacion y la base de datos, correr `docker-compose up --build` desde el directorio /snap-msg.
+4. En caso de que falle la inicializacion del servicio, esto se debe a que el servicio se levanta primero que la base de datos, entonces falla al intentar conectarse.
+5. Para solucionar esto, se debera correr `docker-compose up --build` nuevamente (no se como solucionarlo, lo investigo para el TPG).
